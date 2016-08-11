@@ -24,7 +24,7 @@ const translation = translator({})
 applyMiddleware(translation)(createStore)
 ```
 
-Translations match the key on action.type and expect a value of the type `[Action] | (a: Action) => [Action]`
+Translations match on action.type and expect a value of the type `[Action] | (a: Action) => [Action]`
 
 
 E.g.
@@ -44,8 +44,10 @@ applyMiddleware(translation)(createStore)
 
 ...
 
-dispatch(registrationComplete()) // dispatches registrationComplete, then replace("/), then welcome()
+// dispatches registrationComplete, then replace("/), then welcome()
+dispatch(registrationComplete())
 
-dispatch(numberAction(n)) // dispatches numberAction, then oddAction if it's odd, or evenAction if it's even
+// dispatches numberAction, then oddAction if it's odd, or evenAction if it's even
+dispatch(numberAction(n)) 
 
 ```
