@@ -8,7 +8,6 @@ export default function translator (translations) {
       if (!Array.isArray(translation)) {
         translation = translation(action)
       }
-      console.log(translation)
       return translation.map(dispatch)
     }
   }
