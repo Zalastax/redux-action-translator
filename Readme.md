@@ -3,6 +3,7 @@
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
 [![dependencies](https://david-dm.org/Zalastax/redux-action-translator.svg)](https://david-dm.org/Zalastax/redux-action-translator)
+
 Translate dispatched actions to other actions, for compatibility with reducers/middleware you don't control.
 E.g. when an action should trigger a history change in [redux-router](https://github.com/acdlite/redux-router)
 
