@@ -1,12 +1,12 @@
 export default function translator (translations) {
-  return ({ dispatch }) => next => action => {
+  return ({ dispatch, getState }) => next => action => {
     next(action)
 
     let translation = translations[action.type]
 
     if (translation) {
       if (!Array.isArray(translation)) {
-        translation = translation(action)
+        translation = translation(action, getState)
       }
       return translation.map(dispatch)
     }

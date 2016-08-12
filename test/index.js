@@ -53,3 +53,16 @@ test('advanced translated action', ({plan, equal}) => {
   const actionSequence = [2, 7, 2, 7, 7, 2, 2]
   actionSequence.forEach(k => f(actions[k]))
 })
+
+test('getState available in translated action', ({plan, equal}) => {
+  plan(1)
+
+  translator({})(
+    // dispatch function
+    {dispatch: () => {}},
+    {getState: () => pass('getState available in translated action')}
+  )(
+    // next function
+    (action) => equal(action, actions[0])
+  )(actions[0])
+})

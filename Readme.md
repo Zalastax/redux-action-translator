@@ -2,8 +2,8 @@
 # redux-action-translator
 
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat)](https://github.com/feross/standard)
-[![dependencies](https://david-dm.org/Zalastax/redux-action-translator.svg)](https://david-dm.org/Zalastax/redux-action-translator)  
-Translate dispatched actions to other actions, for compatibility with reducers/middleware you don't control.  
+[![dependencies](https://david-dm.org/Zalastax/redux-action-translator.svg)](https://david-dm.org/Zalastax/redux-action-translator)
+Translate dispatched actions to other actions, for compatibility with reducers/middleware you don't control.
 E.g. when an action should trigger a history change in [redux-router](https://github.com/acdlite/redux-router)
 
 It's preferable to update your reducers/middleware to acknowledge the source action, but that's not always possible.
@@ -24,7 +24,7 @@ const translation = translator({})
 applyMiddleware(translation)(createStore)
 ```
 
-Translations match on action.type and expect a value of the type `[Action] | (a: Action) => [Action]`
+Translations match on action.type and expect a value of the type `[Action] | (a: Action, getState: () => State) => [Action]`
 
 
 E.g.
@@ -38,6 +38,7 @@ const translation = translator({
   "login_complete": [replace("/")],
   "registration_complete": [replace("/"), welcome()],
   "number": a => a.payload % 2 ? [oddAction(a.payload)] : [evenAction(a.payload)],
+  "unauthorized": (a, getState) => [redirect(`/login?redirect=${getState().router.location.pathname}`)],
 });
 
 applyMiddleware(translation)(createStore)
@@ -48,6 +49,6 @@ applyMiddleware(translation)(createStore)
 dispatch(registrationComplete())
 
 // dispatches numberAction, then oddAction if it's odd, or evenAction if it's even
-dispatch(numberAction(n)) 
+dispatch(numberAction(n))
 
 ```
